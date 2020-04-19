@@ -17,7 +17,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     DataSource dataSource;
 
-    @Override
+        @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource);
@@ -26,9 +26,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
                 .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/").hasAnyRole("USER","ADMIN")
+                .antMatchers("/**").permitAll()
                 .and()
                 .formLogin();
     }
