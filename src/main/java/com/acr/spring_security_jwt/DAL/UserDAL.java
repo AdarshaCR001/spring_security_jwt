@@ -25,4 +25,14 @@ public class UserDAL implements IUserDAL {
 
         return users;
     }
+
+    @Override
+    public User Add(User user) {
+        Session currentSession=entityManager.unwrap(Session.class);
+
+        currentSession.saveOrUpdate(user);
+
+        //Id will be automatically updated in user after save
+        return user;
+    }
 }

@@ -7,4 +7,5 @@ import java.util.List;
 public interface IUserDAL {
 
     public List<User> findAll();
+    public User Add(User user);
 }

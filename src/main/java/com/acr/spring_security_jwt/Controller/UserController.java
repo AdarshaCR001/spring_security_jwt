@@ -22,14 +22,10 @@ public class UserController {
     @GetMapping("/")
     public ResponseEntity getAll()
     {
-        try {
+        try
+        {
             List<User> users = userManager.getUsers();
-
-            if (users == null || users.size() == 0) {
-                return ResponseEntity.noContent().build();
-            } else {
-                return ResponseEntity.ok(users);
-            }
+            return ResponseEntity.ok(users);
         }
         catch (NoResultException e)
         {
@@ -42,8 +38,19 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public User get(@RequestBody User user)
+    public ResponseEntity get(@RequestBody User user)
     {
-        return new User();
+        try {
+            User r_user=userManager.AddUser(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(r_user);
+        }
+        catch (NoResultException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 }

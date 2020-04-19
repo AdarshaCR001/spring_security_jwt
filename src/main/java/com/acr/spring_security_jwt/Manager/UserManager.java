@@ -21,4 +21,13 @@ public class UserManager {
         }
         return userDAL.findAll();
     }
+
+    public User AddUser(User _user) throws NoResultException {
+        User user=userDAL.Add(_user);
+        if(user.getUsername().isEmpty()||user.getPassword().isEmpty()||user.getEnabled()==null)
+        {
+            throw new NoResultException("Please fill all the details");
+        }
+        return user;
+    }
 }
