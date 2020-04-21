@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface IUserDAL {
 
-    public List<User> findAll();
-    public User Add(User user);
+    public List<User> GetAll();
+    public User GetById(int id);
+    public User AddOrUpdate(User user);
+    public Boolean Delete(int id);
 }
